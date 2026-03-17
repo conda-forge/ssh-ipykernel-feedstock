@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ssh_ipykernel-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ssh_ipykernel-{{ version }}.tar.gz
   sha256: 99314a231846fb47557ebac36fbf4ad0a289933a34b8ef59dfe893a9eb4adbda
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 2
 
 requirements:
   host:
