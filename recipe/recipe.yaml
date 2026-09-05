@@ -1,0 +1,49 @@
+schema_version: 1
+
+context:
+  name: ssh-ipykernel
+  version: "1.2.3"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/ssh_ipykernel-${{ version }}.tar.gz
+  sha256: 99314a231846fb47557ebac36fbf4ad0a289933a34b8ef59dfe893a9eb4adbda
+
+build:
+  number: 2
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - tornado >=6.1.0,<=6.2.0
+    - jupyter_client >=6.1.12,<6.2.0
+    - jupyterlab >=3.0.0,<3.1.0
+    - if: win
+      then: wexpect ==3.3.2
+    - if: not win
+      then: pexpect ==4.8.0
+    - ssh_ipykernel_interrupt ==1.1.2
+    - notebook
+
+tests:
+  - python:
+      imports:
+        - ssh_ipykernel
+      pip_check: true
+
+about:
+  summary: A remote jupyter ipykernel via ssh
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/bernhard-42/ssh_ipykernel
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
